@@ -1,0 +1,21 @@
+<header class="sticky-header">
+
+  <div class="wrapper">
+    {%- assign default_paths = site.pages | map: "path" -%}
+    {%- assign page_paths = site.header_pages | default: default_paths -%}
+
+    <div>
+      <a class="home-btn" rel="author" href="{{"/" | relative_url }}"><i class="fa-solid fa-house"></i></a>
+    </div>
+
+    <div class="container1">
+      <div class="anim1"><i class="quark424242ff"></i></div>
+      <a class="github-btn" href="https://github.com/b1aekfis"><i class="fa-brands fa-github"></i></a>
+      <a style="font-size:2.88em; margin-top: 2.88px;" class="github-btn" href="https://gitlab.com/blaekfis"><i class="fa-brands fa-gitlab"></i></a>
+    </div>
+
+    {%- include search-box.html -%}
+
+  </div>
+
+</header>

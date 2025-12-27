@@ -1,0 +1,56 @@
+  <!--
+    =====================
+    Pagination links
+      - max length: 7
+      - min length: 4
+    =====================
+  -->
+{% if paginator.total_pages > 1 %}
+  <div class="pagination">
+
+    <!-- Prev -->
+    {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path | relative_url }}">&laquo; Prev</a>
+    {% else %}
+      <span>&laquo; Prev</span>
+    {% endif %}
+
+    <!-- for -->
+    {% for page in (1..paginator.total_pages) %}
+
+      {% if page == paginator.page %}
+        <b><em>{{ page }}</em></b>
+
+      {% elsif page == 1 %}
+        <a href="{{ '/' | relative_url }}">{{ page }}</a>
+        {% if paginator.page > 4 %}
+          ...
+        {% endif %}
+
+      {% elsif page == paginator.total_pages %}
+        {% assign temp = page |minus: paginator.page %}
+        {% if temp > 3 %}
+          ...
+        {% endif %}
+        <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}">{{ page }}</a>
+
+      {% else %}
+        {% assign right = paginator.page | plus:3 %}
+        {% assign left = paginator.page | minus:3 %}
+        {% if page > left and page < right %}
+          <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}">{{ page }}</a>
+        {% endif %}
+
+      {% endif %}
+
+    {% endfor %}
+
+    <!-- Next -->
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path | relative_url }}">Next &raquo;</a>
+    {% else %}
+      <span>Next &raquo;</span>
+    {% endif %}
+
+  </div>
+{% endif %}

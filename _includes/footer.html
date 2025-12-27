@@ -1,0 +1,18 @@
+<footer class="site-footer h-card">
+  <data class="u-url" href="{{ " /" | relative_url }}"></data>
+
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <a class="about" href="/about/"><i class="fa-solid fa-circle-info"></i> about </a>
+          &ensp;&#8739;&ensp;<i class="about"><i class="fa-brands fa-discord fa-bounce"></i> yz1910 </i>
+
+          {%- if site.email -%}
+            <li><a class="u-email" href="mailto:{{ site.email }}"><i class="fa-solid fa-envelope"></i> <i>{{ site.email }}</i></a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
