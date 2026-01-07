@@ -32,6 +32,11 @@ plugins:
 #   - vendor/gems/
 #   - vendor/ruby/
 
+exclude:
+  - run.sh
+  - router.php
+  - osog.code-workspace
+
 show_excerpts: true
 
 paginate: 4
