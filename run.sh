@@ -2,6 +2,9 @@
 
 set -e
 
+echo "Jekyll cleanup..."
+rm -rf _site
+
 echo "Jekyll build..."
 bundle exec jekyll build
 
