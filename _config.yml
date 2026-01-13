@@ -36,6 +36,9 @@ exclude:
   - run.sh
   - router.php
   - osog.code-workspace
+  - db/
+  - db.conf
+  - api/
 
 show_excerpts: true
 

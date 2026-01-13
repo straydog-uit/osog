@@ -10,8 +10,9 @@
 
     <div class="container1">
       <div class="anim1"><i class="quark424242ff"></i></div>
-      <a class="github-btn" href="https://github.com/b1aekfis"><i class="fa-brands fa-github"></i></a>
-      <a style="font-size:2.88em; margin-top: 2.88px;" class="github-btn" href="https://gitlab.com/blaekfis"><i class="fa-brands fa-gitlab"></i></a>
+      <a class="user-btn" href="/login/">
+        <i class="fa-solid fa-user"></i>
+      </a>
     </div>
 
     {%- include search-box.html -%}
@@ -19,3 +20,23 @@
   </div>
 
 </header>
+
+<script>
+  fetch('/api/auth_status.php', {credentials: 'include'})
+    .then(r => r.json())
+    .then(d => {
+      const btn = document.querySelector('.user-btn');
+      if (!btn) return;
+
+      if (d.logged_in) {
+        btn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        btn.href = '/user/';
+        btn.classList.add('logged-in');
+      } else {
+        btn.innerHTML = '<i class="fa-solid fa-user"></i>';
+        btn.href = '/login/';
+        btn.classList.remove('logged-in');
+      }
+    })
+    .catch(() => { });
+</script>

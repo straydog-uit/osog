@@ -20,5 +20,49 @@ layout: default
 
   {{ content }}
 
-  <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+  <div id="save-box" style="display:none;">
+    <button id="save-btn" data-url="{{ page.url | relative_url }}" style="background:none;border:none;cursor:pointer;">
+      <i class="fa-regular fa-bookmark"></i>
+    </button>
+  </div>
 </article>
+
+<script>
+  const saveBox = document.getElementById('save-box');
+  const btn = document.getElementById('save-btn');
+  const icon = btn?.querySelector('i');
+  const postUrl = btn?.dataset.url;
+  const postTitle = document.querySelector('.post-title')?.textContent?.trim() || postUrl;
+
+  function setIcon(saved) {
+    if (!icon) return;
+    icon.classList.toggle('fa-regular', !saved);
+    icon.classList.toggle('fa-solid', saved);
+  }
+
+  btn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    fetch('/api/bookmark.php', {
+      method: 'POST',
+      credentials: 'include',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: `post=${encodeURIComponent(postUrl)}&title=${encodeURIComponent(postTitle)}`
+
+    })
+      .then(r => r.json())
+      .then(d => {if (d.ok) setIcon(d.saved);})
+      .catch(err => console.error('bookmark error', err));
+  });
+
+  fetch('/api/auth_status.php', {credentials: 'include', cache: 'no-store'})
+    .then(r => r.json())
+    .then(auth => {
+      if (!auth.logged_in) return;
+      saveBox.style.display = 'block';
+      fetch(`/api/check_bookmark.php?post=${encodeURIComponent(postUrl)}`, {credentials: 'include', cache: 'no-store'})
+        .then(r => r.json())
+        .then(d => setIcon(d.saved))
+        .catch(err => console.error('check_bookmark error', err));
+    });
+
+</script>
